@@ -1,7 +1,6 @@
 #include <controlflow.hpp>
 #include <interpreter.hpp>
 
-#include <iostream>
 using namespace std;
 
 ControlFlow::ControlFlow(Interpreter& interpreter): interpreter(interpreter)
@@ -21,7 +20,6 @@ void ControlFlow::run()
     jumpToRt("MAIN");
     while (running)
     {
-        cout << "Running line " << (currentLine + 1) << endl;
         interpreter.interpret(lines[currentLine], currentLine);
         currentLine++;
     }

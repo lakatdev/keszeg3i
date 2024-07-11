@@ -3,8 +3,6 @@
 #include <memory.hpp>
 #include <controlflow.hpp>
 
-#include <iostream>
-
 using namespace std;
 
 Instructions::If::If(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
