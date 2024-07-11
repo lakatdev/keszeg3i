@@ -1,0 +1,16 @@
+#ifndef INSTRUCTIONS_LOAD_HPP
+#define INSTRUCTIONS_LOAD_HPP
+
+#include <instruction.hpp>
+
+namespace Instructions
+{
+    class Load : public Instruction
+    {
+        public:
+        Load(ControlFlow& controlFlow, Memory& memory);
+        void execute(vector<string> args);
+    };
+}
+
+#endif
