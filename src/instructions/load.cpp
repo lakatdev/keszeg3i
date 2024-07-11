@@ -1,17 +1,18 @@
-#include <instructions/add.hpp>
+#include <instructions/load.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::Add::Add(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Load::Load(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
 {
-    keys = {"=", "+"};
-    keyPositions = {1, 3};
+    keys = {"load"};
+    keyPositions = {0};
 }
 
-void Instructions::Add::execute(vector<string> args)
+void Instructions::Load::execute(Line line)
 {
-    
+    vector<string> args = line.getTokens();
+    // TODO: Implement
 }

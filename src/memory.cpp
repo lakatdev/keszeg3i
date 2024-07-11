@@ -1,6 +1,11 @@
 #include <memory.hpp>
 #include <keszeg3i.hpp>
 
+Memory::Memory()
+{
+    newScope();
+}
+
 bool Memory::isVariable(string token)
 {
     for (int i = scopes.size() - 1; i >= 0; i--)
@@ -10,6 +15,7 @@ bool Memory::isVariable(string token)
             return true;
         }
     }
+    return false;
 }
 
 bool Memory::isString(string token)
@@ -21,6 +27,7 @@ bool Memory::isString(string token)
             return true;
         }
     }
+    return false;
 }
 
 bool Memory::isArray(string token)
@@ -32,6 +39,7 @@ bool Memory::isArray(string token)
             return true;
         }
     }
+    return false;
 }
 
 int Memory::getVariable(string token)
@@ -109,6 +117,11 @@ void Memory::setStringElement(string token, int index, char value)
     scopes[scopes.size() - 1].setStringElement(token, index, value);
 }
 
+bool Memory::isConstant(string token)
+{
+    return isNumber(token);
+}
+
 bool Memory::isNumber(string token)
 {
     for (int i = 0; i < token.size(); i++)
@@ -136,4 +149,89 @@ void Memory::endScope()
     {
         Keszeg3i::error("Cannot end the global scope", true);
     }
+}
+
+void Memory::freeArray(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isArray(token))
+        {
+            scopes[i].freeArray(token);
+        }
+        break;
+    }
+}
+
+void Memory::freeString(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isString(token))
+        {
+            scopes[i].freeString(token);
+        }
+        break;
+    }
+}
+
+void Memory::freeVariable(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isVariable(token))
+        {
+            scopes[i].freeVariable(token);
+        }
+        break;
+    }
+}
+
+void Memory::setString(string token, string value)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isString(token))
+        {
+            scopes[i].setString(token, value);
+            return;
+        }
+    }
+    scopes[scopes.size() - 1].setString(token, value);
+}
+
+int Memory::getArraySize(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isArray(token))
+        {
+            return scopes[i].getArraySize(token);
+        }
+    }
+    return 0;
+}
+
+int Memory::getStringSize(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isString(token))
+        {
+            return scopes[i].getStringSize(token);
+        }
+    }
+    return 0;
+}
+
+string Memory::getString(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isString(token))
+        {
+            return scopes[i].getString(token);
+        }
+    }
+    return "";
 }

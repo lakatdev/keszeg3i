@@ -1,17 +1,35 @@
-#include <instructions/add.hpp>
+#include <instructions/end.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::Add::Add(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::End::End(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
 {
-    keys = {"=", "+"};
-    keyPositions = {1, 3};
+    keys = {"end"};
+    keyPositions = {0};
 }
 
-void Instructions::Add::execute(vector<string> args)
+void Instructions::End::execute(Line line)
 {
-    
+    vector<string> args = line.getTokens();
+    ControlFlow::CurrentScopeType endedScope = controlFlow.popType();
+    switch (endedScope)
+    {
+        case (ControlFlow::CurrentScopeType::IF):
+        {
+            break;
+        }
+        case (ControlFlow::CurrentScopeType::WHILE):
+        {
+            controlFlow.jumpToScopeStart();
+            break;
+        }
+        case (ControlFlow::CurrentScopeType::SCOPE):
+        {
+            memory.endScope();
+            break;
+        }
+    }
 }

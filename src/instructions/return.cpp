@@ -1,17 +1,18 @@
-#include <instructions/add.hpp>
+#include <instructions/return.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::Add::Add(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Return::Return(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
 {
-    keys = {"=", "+"};
-    keyPositions = {1, 3};
+    keys = {"return)"};
+    keyPositions = {0};
 }
 
-void Instructions::Add::execute(vector<string> args)
+void Instructions::Return::execute(Line line)
 {
-    
+    vector<string> args = line.getTokens();
+    controlFlow.popJump();
 }

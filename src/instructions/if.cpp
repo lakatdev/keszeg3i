@@ -1,17 +1,63 @@
-#include <instructions/add.hpp>
+#include <instructions/if.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
+#include <iostream>
+
 using namespace std;
 
-Instructions::Add::Add(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::If::If(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
 {
-    keys = {"=", "+"};
-    keyPositions = {1, 3};
+    keys = {"if"};
+    keyPositions = {0};
 }
 
-void Instructions::Add::execute(vector<string> args)
+void Instructions::If::execute(Line line)
 {
-    
+
+    vector<string> args = line.getTokens();
+    if (args.size() != 4)
+    {
+        Keszeg3i::error("Usage: if X operator Y");
+    }
+    controlFlow.pushType(ControlFlow::CurrentScopeType::IF);
+
+    bool evaluate = false;
+    int x = memory.isConstant(args[1]) ? stoi(args[1]): memory.getVariable(args[1]);
+    int y = memory.isConstant(args[3]) ? stoi(args[3]): memory.getVariable(args[3]);
+
+    if (args[2] == "=")
+    {
+        evaluate = x == y;
+    }
+    else if (args[2] == "!=")
+    {
+        evaluate = x != y;
+    }
+    else if (args[2] == "<")
+    {
+        evaluate = x < y;
+    }
+    else if (args[2] == ">")
+    {
+        evaluate = x > y;
+    }
+    else if (args[2] == "<=")
+    {
+        evaluate = x <= y;
+    }
+    else if (args[2] == ">=")
+    {
+        evaluate = x >= y;
+    }
+    else
+    {
+        Keszeg3i::error("Invalid operator: " + args[2]);
+    }
+
+    if (!evaluate)
+    {
+        controlFlow.jumpToEnd();
+    }
 }

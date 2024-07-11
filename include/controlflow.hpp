@@ -21,6 +21,7 @@ class ControlFlow
     int currentLine;
     vector<CurrentScopeType> currentScope;
     vector<int> stack;
+    bool running = false;
 
     public:
     ControlFlow(Interpreter& interpreter);
@@ -29,7 +30,7 @@ class ControlFlow
 
     void jumpToRt(string label);
     void jumpToEnd();
-    void jumpToFlag(string label);
+    void jumpToScopeStart();
     CurrentScopeType getCurrentScopeType();
     void pushJump(string label);
     void popJump();

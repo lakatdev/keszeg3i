@@ -34,3 +34,27 @@ string Line::toString()
     }
     return result;
 }
+
+string Line::parseString(int after)
+{
+    string result = "";
+    for (int i = after; i < tokens.size(); i++)
+    {
+        result += tokens[i] + " ";
+    }
+    replaceAll(result, "\\n", "\n");
+    replaceAll(result, "\\h", "#");
+    replaceAll(result, "\\s", " ");
+    replaceAll(result, "\\N", "\n");
+    replaceAll(result, "\\H", "#");
+    replaceAll(result, "\\S", " ");
+    return result;
+}
+
+void Line::replaceAll(std::string& str, const std::string& from, const std::string& to) {
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length();
+    }
+}

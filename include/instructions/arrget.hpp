@@ -9,7 +9,7 @@ namespace Instructions
     {
         public:
         Arrget(ControlFlow& controlFlow, Memory& memory);
-        void execute(vector<string> args);
+        void execute(Line line);
     };
 }
 

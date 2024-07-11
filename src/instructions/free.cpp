@@ -1,17 +1,25 @@
-#include <instructions/add.hpp>
+#include <instructions/free.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::Add::Add(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Free::Free(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
 {
-    keys = {"=", "+"};
-    keyPositions = {1, 3};
+    keys = {"free"};
+    keyPositions = {0};
 }
 
-void Instructions::Add::execute(vector<string> args)
+void Instructions::Free::execute(Line line)
 {
-    
+    vector<string> args = line.getTokens();
+    if (args.size() != 2)
+    {
+        Keszeg3i::error("Usage: free X");
+    }
+
+    memory.freeVariable(args[1]);
+    memory.freeArray(args[1]);
+    memory.freeString(args[1]);
 }

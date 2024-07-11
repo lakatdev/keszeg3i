@@ -15,16 +15,22 @@ class Scope
     unordered_map<string, string> strings;
 
     public:
-    Scope();
     int getVariable(string token);
     int getArrayElement(string token, int index);
     char getStringElement(string token, int index);
     void setVariable(string token, int value);
     void setArrayElement(string token, int index, int value);
     void setStringElement(string token, int index, char value);
+    void setString(string token, string value);
+    string getString(string token);
     bool isVariable(string token);
     bool isArray(string token);
     bool isString(string token);
+    void freeArray(string token);
+    void freeString(string token);
+    void freeVariable(string token);
+    int getArraySize(string token);
+    int getStringSize(string token);
 };
 
 #endif

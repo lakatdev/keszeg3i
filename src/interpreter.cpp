@@ -4,6 +4,9 @@
 #include <interpreter.hpp>
 #include <keszeg3i.hpp>
 
+#include <iostream>
+using namespace std;
+
 Interpreter::~Interpreter()
 {
     for (int i = 0; i < instructions.size(); i++)
@@ -20,7 +23,7 @@ void Interpreter::interpret(Line line, int lineNumber)
         {
             if (instructions[i]->matches(line))
             {
-                instructions[i]->execute(line.getTokens());
+                instructions[i]->execute(line);
                 return;
             }
         }

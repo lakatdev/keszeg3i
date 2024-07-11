@@ -21,7 +21,7 @@ class Instruction
     vector<int> keyPositions;
     public:
     Instruction(ControlFlow& controlFlow, Memory& runtime);
-    virtual void execute(vector<string> args) = 0;
+    virtual void execute(Line line) = 0;
     bool matches(Line line);
 };
 
