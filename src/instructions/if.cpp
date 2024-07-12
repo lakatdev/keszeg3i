@@ -19,7 +19,6 @@ void Instructions::If::execute(Line line)
     {
         Keszeg3i::error("Usage: if X operator Y");
     }
-    controlFlow.pushType(ControlFlow::CurrentScopeType::IF);
 
     bool evaluate = false;
     int x = memory.isConstant(args[1]) ? stoi(args[1]): memory.getVariable(args[1]);
@@ -57,5 +56,9 @@ void Instructions::If::execute(Line line)
     if (!evaluate)
     {
         controlFlow.jumpToEnd();
+    }
+    else 
+    {
+        controlFlow.pushType(ControlFlow::CurrentScopeType::IF);
     }
 }

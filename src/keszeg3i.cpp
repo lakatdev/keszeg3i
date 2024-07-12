@@ -90,3 +90,8 @@ void Keszeg3i::error(string message, bool terminate)
     }
     std::cout << "\033[31m" << message << "\033[0m" << std::endl;
 }
+
+void Keszeg3i::debug(string message)
+{
+    std::cout << "\033[33m" << message << "\033[0m" << std::endl;
+}

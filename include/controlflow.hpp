@@ -22,6 +22,8 @@ class ControlFlow
     vector<CurrentScopeType> currentScope;
     vector<int> stack;
     bool running = false;
+    bool currentExecution = false;
+    void executeCurrent();
 
     public:
     ControlFlow(Interpreter& interpreter);

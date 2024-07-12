@@ -18,7 +18,6 @@ void Instructions::While::execute(Line line)
     {
         Keszeg3i::error("Usage: while X operator Y");
     }
-    controlFlow.pushType(ControlFlow::CurrentScopeType::WHILE);
     bool evaluate = false;
     int x = memory.isConstant(args[1]) ? stoi(args[1]): memory.getVariable(args[1]);
     int y = memory.isConstant(args[3]) ? stoi(args[3]): memory.getVariable(args[3]);
@@ -54,5 +53,9 @@ void Instructions::While::execute(Line line)
     if (!evaluate)
     {
         controlFlow.jumpToEnd();
+    }
+    else 
+    {
+        controlFlow.pushType(ControlFlow::CurrentScopeType::WHILE);
     }
 }
