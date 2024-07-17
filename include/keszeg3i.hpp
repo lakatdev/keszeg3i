@@ -8,6 +8,8 @@ using namespace std;
 
 class Keszeg3i
 {
+    private:
+    static bool debugMode;
     public:
     Keszeg3i(vector<string> args);
     static void error(string message, bool terminate = false);

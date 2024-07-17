@@ -37,17 +37,25 @@
 
 using namespace std;
 
+bool Keszeg3i::debugMode = false;
+
 Keszeg3i::Keszeg3i(vector<string> args)
 {
-    if (args.size() != 2)
+    if (args.size() != 2 && args.size() != 3)
     {
-        error("Usage: keszeg3i <file>", true);
+        error("Usage: keszeg3i (<flags>) <file>", true);
+    }
+
+    for (const auto& arg : args) {
+        if (arg == "-d") {
+            debugMode = true;
+        }
     }
 
     Interpreter interpreter = Interpreter();
     Memory memory = Memory();
     ControlFlow controlFlow = ControlFlow(interpreter);
-    Runtime runtime = Runtime(controlFlow, memory, args[1]);
+    Runtime runtime = Runtime(controlFlow, memory, args[args.size() - 1]);
 
     interpreter.addInstruction(new Instructions::Add(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Arrget(controlFlow, memory));
@@ -93,5 +101,8 @@ void Keszeg3i::error(string message, bool terminate)
 
 void Keszeg3i::debug(string message)
 {
-    std::cout << "\033[33m" << message << "\033[0m" << std::endl;
+    if (debugMode)
+    {
+        std::cout << "\033[33m" << message << "\033[0m" << std::endl;
+    }
 }

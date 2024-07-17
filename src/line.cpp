@@ -40,7 +40,11 @@ string Line::parseString(int after)
     string result = "";
     for (int i = after; i < tokens.size(); i++)
     {
-        result += tokens[i] + " ";
+        result += tokens[i];
+        if (i < tokens.size() - 1)
+        {
+            result += " ";
+        }
     }
     replaceAll(result, "\\n", "\n");
     replaceAll(result, "\\h", "#");

@@ -14,7 +14,7 @@ Instructions::Dec::Dec(ControlFlow& controlFlow, Memory& memory): Instruction(co
 void Instructions::Dec::execute(Line line)
 {
     vector<string> args = line.getTokens();
-    if (args.size() != 3 || args.size() != 2)
+    if (args.size() != 3 && args.size() != 2)
     {
         Keszeg3i::error("Usage: X -= (Y)");
     }

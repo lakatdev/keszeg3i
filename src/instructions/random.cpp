@@ -2,6 +2,7 @@
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
+#include <cstdlib>
 
 using namespace std;
 
@@ -20,5 +21,5 @@ void Instructions::Random::execute(Line line)
     }
 
     int y = memory.isConstant(args[2]) ? stoi(args[2]): memory.getVariable(args[2]);
-    memory.setVariable(args[0], rand() % y);
+    memory.setVariable(args[1], rand() % y);
 }

@@ -18,13 +18,13 @@ void Instructions::Print::execute(Line line)
     
     if (args[1] == "$")
     {
-        int x = memory.getVariable(args[2]);
+        int x = memory.isConstant(args[2]) ? stoi(args[2]): memory.getVariable(args[2]);
         cout << x;
     }
     else if (args[1] == "ascii")
     {
-        int x = memory.getVariable(args[2]);
-        cout << (char)x;
+        int x = memory.isConstant(args[2]) ? stoi(args[2]): memory.getVariable(args[2]);
+        std::cout << static_cast<char>(x);
     }
     else if (args[1] == "string")
     {

@@ -6,6 +6,9 @@
 #include <runtime.hpp>
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 void Runtime::readLines(string source)
 {
@@ -26,6 +29,7 @@ void Runtime::readLines(string source)
 
 Runtime::Runtime(ControlFlow& controlFlow, Memory& memory, string source): memory(memory), controlFlow(controlFlow)
 {
+    srand(time(nullptr));
     readLines(source);
 }
 

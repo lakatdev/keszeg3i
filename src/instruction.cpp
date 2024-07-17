@@ -9,7 +9,13 @@ Instruction::Instruction(ControlFlow& controlFlow, Memory& memory): memory(memor
 
 bool Instruction::matchesKey(Line line, string key, int keyPosition)
 {
-    return (line.getTokens().size() > keyPosition &&
+    if (length < 0)
+    {
+        return (line.getTokens().size() > keyPosition &&
+            line.getTokens()[keyPosition] == key);
+    }
+    return ( length == line.getTokens().size() &&
+        line.getTokens().size() > keyPosition &&
         line.getTokens()[keyPosition] == key);
 }
 

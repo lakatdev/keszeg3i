@@ -9,6 +9,7 @@ Instructions::Set::Set(ControlFlow& controlFlow, Memory& memory): Instruction(co
 {
     keys = {"="};
     keyPositions = {1};
+    length = 3;
 }
 
 void Instructions::Set::execute(Line line)

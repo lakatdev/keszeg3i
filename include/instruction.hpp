@@ -19,6 +19,7 @@ class Instruction
     ControlFlow& controlFlow;
     vector<string> keys;
     vector<int> keyPositions;
+    int length = -1;
     public:
     Instruction(ControlFlow& controlFlow, Memory& runtime);
     virtual void execute(Line line) = 0;
