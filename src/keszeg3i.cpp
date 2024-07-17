@@ -27,6 +27,7 @@
 #include <instructions/return.hpp>
 #include <instructions/save.hpp>
 #include <instructions/set.hpp>
+#include <instructions/scope.hpp>
 #include <instructions/sizeof.hpp>
 #include <instructions/sleep.hpp>
 #include <instructions/strget.hpp>
@@ -77,6 +78,7 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Random(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Return(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Save(controlFlow, memory));
+    interpreter.addInstruction(new Instructions::Scope(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Set(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Sizeof(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Sleep(controlFlow, memory));

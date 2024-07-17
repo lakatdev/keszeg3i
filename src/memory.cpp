@@ -51,6 +51,7 @@ int Memory::getVariable(string token)
             return scopes[i].getVariable(token);
         }
     }
+    Keszeg3i::error("Variable " + token + " has not been declared");
     return 0;
 }
 
@@ -63,6 +64,7 @@ int Memory::getArrayElement(string token, int index)
             return scopes[i].getArrayElement(token, index);
         }
     }
+    Keszeg3i::error("Array " + token + " has not been declared");
     return 0;
 }
 
@@ -75,6 +77,7 @@ char Memory::getStringElement(string token, int index)
             return scopes[i].getStringElement(token, index);
         }
     }
+    Keszeg3i::error("String " + token + " has not been declared");
     return 0;
 }
 
@@ -210,6 +213,7 @@ int Memory::getArraySize(string token)
         }
     }
     return 0;
+    Keszeg3i::error("Array " + token + " has not been declared");
 }
 
 int Memory::getStringSize(string token)
@@ -221,6 +225,7 @@ int Memory::getStringSize(string token)
             return scopes[i].getStringSize(token);
         }
     }
+    Keszeg3i::error("String " + token + " has not been declared");
     return 0;
 }
 
@@ -233,5 +238,6 @@ string Memory::getString(string token)
             return scopes[i].getString(token);
         }
     }
+    Keszeg3i::error("String " + token + " has not been declared");
     return "";
 }
