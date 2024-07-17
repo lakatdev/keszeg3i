@@ -14,8 +14,11 @@ Instructions::Cat::Cat(ControlFlow& controlFlow, Memory& memory): Instruction(co
 void Instructions::Cat::execute(Line line)
 {
     vector<string> args = line.getTokens();
-    
-    string str = memory.getString(args[1]);
+    string str = "";
+    if (memory.isString(args[1]))
+    {
+        str = memory.getString(args[1]);
+    }
     str += line.parseString(2);
     memory.setString(args[1], str);
 }
