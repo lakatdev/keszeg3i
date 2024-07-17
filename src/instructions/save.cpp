@@ -48,21 +48,35 @@ void Instructions::Save::saveArrayToFile(const string& arr, const string& filena
 void Instructions::Save::execute(Line line)
 {
     vector<string> args = line.getTokens();
-    if (args.size() != 3)
+    if (args.size() != 4)
     {
-        Keszeg3i::error("Usage: save X Y");
+        Keszeg3i::error("Usage: save mode X Y");
     }
 
-    if (memory.isString(args[1]))
+    if (args[1] == "string")
     {
-        saveStringToFile(memory.getString(args[1]), line.parseString(2));
+        if (memory.isString(args[2]))
+        {
+            saveStringToFile(memory.getString(args[2]), line.parseString(3));
+        }
+        else
+        {
+            Keszeg3i::error("Variable is not a string");
+        }
     }
-    else if (memory.isArray(args[1]))
+    else if (args[1] == "array")
     {
-        saveArrayToFile(args[1], line.parseString(2));
+        if (memory.isArray(args[2]))
+        {
+            saveArrayToFile(args[2], line.parseString(3));
+        }
+        else
+        {
+            Keszeg3i::error("Variable is not an array");
+        }
     }
     else
     {
-        Keszeg3i::error("Variable is not a string or an array");
+        Keszeg3i::error("Invalid mode: " + args[1]);
     }
 }
