@@ -5,7 +5,8 @@ namespace KeszegUI
 {
     class Element
     {
-
+        public:
+        virtual string render() = 0;
     };
 }
 

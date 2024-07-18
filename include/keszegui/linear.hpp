@@ -27,6 +27,9 @@ namespace KeszegUI
         Orientation orientation;
         public:
         void addElement(Element element);
+        void clear();
+        void setAlignment(Alignment alignment);
+        void setOrientation(Orientation orientation);
     };
 }
 

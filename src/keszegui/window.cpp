@@ -6,13 +6,33 @@
 
 using namespace std;
 
-KeszegUI::Window::Window(const string& title, int width, int height)
+KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height)
+{
+    this.controlFlow = controlFlow;
+    linearMain.setOrientation(Linear::Orientation::VERTICAL);
+    linearMain.setAlignment(Linear::Alignment::START);
+}
+
+void KeszegUI::Window::loopback(const string& arg)
+{
+    if (arg.length() > 4)
+    {
+        arg = arg.substr(2, arg.length() - 4);
+        controlFlow.pushJump(arg); // Ez lehet nem fog mukodni TODO
+    }
+}
+
+void KeszegUI::Window::render()
 {
     webview::webview w(true, nullptr);
     w.set_title(title);
     w.set_size(width, height, WEBVIEW_HINT_NONE);
 
-    string html = "<!doctype html><html><body><h1>Hello, World!</h1><p>This is a simple HTML page displayed in a WebView.</p><button onclick=\"test_fung('func')\">test</button></body></html>";
+    string html = "<!doctype html><body>";
+    html += linearMain.render();
+    html += "</body></html>";
+
+    string html = render();
 
     w.bind("test_fung", [this](const std::string& arg) -> std::string
     {
@@ -24,22 +44,12 @@ KeszegUI::Window::Window(const string& title, int width, int height)
     w.run();
 }
 
-void KeszegUI::Window::loopback(const string& arg)
-{
-    cout << "loopback: " << arg << endl;
-}
-
-string KeszegUI::Window::render()
-{
-    return "";
-}
-
 void KeszegUI::Window::addElement(KeszegUI::Element& element)
 {
-
+    linearMain.addElement(element);
 }
 
 void KeszegUI::Window::clear()
 {
-
+    linearMain.clear();
 }

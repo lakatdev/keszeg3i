@@ -4,6 +4,7 @@
 #include <string>
 #include <keszegui/element.hpp>
 #include <keszegui/linear.hpp>
+#include <controlflow.hpp>
 
 using namespace std;
 
@@ -12,11 +13,12 @@ namespace KeszegUI
     class Window
     {
         private:
+        ControlFlow& controlFlow;
         void loopback(const string& arg);
         public:
         Linear linearMain;
-        Window(const string& title, int width, int height);
-        string render();
+        Window(ControlFlow& controlFlow, const string& title, int width, int height);
+        void render();
         void addElement(Element& element);
         void clear();
     };
