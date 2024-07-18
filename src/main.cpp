@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <keszeg3i.hpp>
+#include <keszegui/window.hpp>
 
 using namespace std;
 
@@ -14,7 +15,9 @@ int main(int argc, char *argv[])
         {
             args.push_back(argv[i]);
         }
-        Keszeg3i keszeg3i(args);
+        //Keszeg3i keszeg3i(args);
+        KeszegUI::Window testWindow = KeszegUI::Window("test", 400, 300);
+        cout << "asd" << endl;
     }
     catch (const char* m)
     {
