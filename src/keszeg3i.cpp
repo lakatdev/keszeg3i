@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 
+#include <keszegui/window.hpp>
+
 #include <instructions/add.hpp>
 #include <instructions/arrget.hpp>
 #include <instructions/arrset.hpp>
@@ -87,6 +89,8 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Sub(controlFlow, memory));
     interpreter.addInstruction(new Instructions::Subroutine(controlFlow, memory));
     interpreter.addInstruction(new Instructions::While(controlFlow, memory));
+
+    //KeszegUI::Window testWindow = KeszegUI::Window(controlFlow, "test", 400, 300, "/home/fodor/Projects/keszeg3i/minta/home.html");
 
     runtime.run();
 }

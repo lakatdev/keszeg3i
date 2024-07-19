@@ -2,8 +2,6 @@
 #define KESZEGUI_WINDOW_HPP
 
 #include <string>
-#include <keszegui/element.hpp>
-#include <keszegui/linear.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
@@ -14,13 +12,10 @@ namespace KeszegUI
     {
         private:
         ControlFlow& controlFlow;
+        string content;
         void loopback(const string& arg);
         public:
-        Linear linearMain;
-        Window(ControlFlow& controlFlow, const string& title, int width, int height);
-        void render();
-        void addElement(Element& element);
-        void clear();
+        Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path);
     };
 }
 

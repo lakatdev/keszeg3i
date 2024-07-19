@@ -1,28 +1,56 @@
 #include <keszegui/window.hpp>
-#include <keszegui/element.hpp>
-#include <keszegui/webview.h>
 #include <string>
+#include <keszegui/webview.h>
 #include <iostream>
+#include <fstream>
+#include <keszeg3i.hpp>
+#include <sstream>
 
 using namespace std;
 
-KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height)
+KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path): controlFlow(controlFlow)
 {
-    this.controlFlow = controlFlow;
-    linearMain.setOrientation(Linear::Orientation::VERTICAL);
-    linearMain.setAlignment(Linear::Alignment::START);
+    ifstream file(path);
+    if (file)
+    {
+        stringstream buffer;
+        buffer << file.rdbuf();
+        content = buffer.str();
+    }
+    else
+    {
+        Keszeg3i::error("Failed to open file at " + path);
+        return;
+    }
+
+    webview::webview w(true, nullptr);
+    w.set_title(title);
+    w.set_size(width, height, WEBVIEW_HINT_NONE);
+
+    // &\(rt\s+(\w+)\)
+
+    //content = "<!doctype html><body><p>hello world</p></body></html>";
+    cout << "data:text/html," + string(content) << endl;
+
+    w.navigate("data:text/html," + string(content));
+    w.run();
 }
 
 void KeszegUI::Window::loopback(const string& arg)
 {
     if (arg.length() > 4)
     {
-        arg = arg.substr(2, arg.length() - 4);
-        controlFlow.pushJump(arg); // Ez lehet nem fog mukodni TODO
+        string rt = arg.substr(2, arg.length() - 4);
+        controlFlow.pushJump(rt); // Ez lehet nem fog mukodni TODO
+        // TODO ezert lehet fel kell parameterezni hogy a
+        // return tudja hogy igazabol nem kell visszaugrania vagy
+        // ha igen akkor csak a window render instructionre amit nem kell ujbol lefuttatnia
+
+
     }
 }
 
-void KeszegUI::Window::render()
+/*void KeszegUI::Window::render()
 {
     webview::webview w(true, nullptr);
     w.set_title(title);
@@ -40,16 +68,5 @@ void KeszegUI::Window::render()
         return "";
     });
 
-    w.navigate("data:text/html," + string(html));
-    w.run();
-}
-
-void KeszegUI::Window::addElement(KeszegUI::Element& element)
-{
-    linearMain.addElement(element);
-}
-
-void KeszegUI::Window::clear()
-{
-    linearMain.clear();
-}
+    
+}*/

@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
             args.push_back(argv[i]);
         }
         Keszeg3i keszeg3i(args);
-        //KeszegUI::Window testWindow = KeszegUI::Window("test", 400, 300);
     }
     catch (const char* m)
     {
