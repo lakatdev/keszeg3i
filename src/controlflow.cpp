@@ -160,3 +160,7 @@ void ControlFlow::jumpToScopeStart()
     }
 }
 
+void ControlFlow::interrupt(string label)
+{
+    
+}

@@ -37,6 +37,7 @@ class ControlFlow
     void pushJump(string label);
     void popJump();
     void pushType(CurrentScopeType type);
+    void interrupt(string label);
     CurrentScopeType popType();
 };
 

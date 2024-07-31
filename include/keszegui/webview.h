@@ -4239,7 +4239,7 @@ using webview = browser_engine;
 
 namespace detail {
 
-webview *cast_to_webview(void *w) {
+inline webview *cast_to_webview(void *w) {
   if (!w) {
     throw exception{WEBVIEW_ERROR_INVALID_ARGUMENT,
                     "Cannot cast null pointer to webview instance"};

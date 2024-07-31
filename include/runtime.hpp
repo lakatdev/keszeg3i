@@ -11,11 +11,11 @@
 class Runtime
 {
     private:
-    ControlFlow& controlFlow;
-    Memory& memory;
     void readLines(string source);
 
     public:
+    ControlFlow& controlFlow;
+    Memory& memory;
     Runtime(ControlFlow& controlFlow, Memory& memory, string source);
     void run();
 };

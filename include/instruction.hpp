@@ -21,7 +21,7 @@ class Instruction
     vector<int> keyPositions;
     int length = -1;
     public:
-    Instruction(ControlFlow& controlFlow, Memory& runtime);
+    Instruction(ControlFlow& controlFlow, Memory& memory);
     virtual void execute(Line line) = 0;
     bool matches(Line line);
 };

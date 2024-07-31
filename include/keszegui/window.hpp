@@ -3,6 +3,7 @@
 
 #include <string>
 #include <controlflow.hpp>
+#include <keszegui/webview.h>
 
 using namespace std;
 
@@ -11,11 +12,18 @@ namespace KeszegUI
     class Window
     {
         private:
+        webview::webview w;
         ControlFlow& controlFlow;
         string content;
         void loopback(const string& arg);
         public:
         Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path);
+        void update();
+        void close();
+        void size(int width, int height);
+        void open(const string& path);
+        void show();
+        void title(const string& title);
     };
 }
 

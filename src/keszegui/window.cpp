@@ -1,14 +1,52 @@
 #include <keszegui/window.hpp>
-#include <string>
 #include <keszegui/webview.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <keszeg3i.hpp>
 #include <sstream>
+#include <regex>
 
 using namespace std;
 
-KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path): controlFlow(controlFlow)
+KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path): controlFlow(controlFlow), w(true, nullptr)
+{
+    open(path);
+    this->title(title);
+    size(width, height);
+    update();
+    show();
+}
+
+void KeszegUI::Window::update()
+{
+    regex pattern("&\\(rt\\s+(\\w+)\\)");
+    string replacement = "\"loopback(\'$1\')\"";
+
+    content = regex_replace(content, pattern, replacement);
+
+    w.bind("loopback", [this](const string& arg) -> string
+    {
+        this->loopback(arg);
+        return "";
+    });
+
+    cout << "Content: " << content << endl;
+
+    w.navigate("data:text/html," + content);
+}
+
+void KeszegUI::Window::close()
+{
+    w.terminate();
+}
+
+void KeszegUI::Window::size(int width, int height)
+{
+    w.set_size(width, height, WEBVIEW_HINT_NONE);
+}
+
+void KeszegUI::Window::open(const string& path)
 {
     ifstream file(path);
     if (file)
@@ -22,18 +60,16 @@ KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int widt
         Keszeg3i::error("Failed to open file at " + path);
         return;
     }
+}
 
-    webview::webview w(true, nullptr);
-    w.set_title(title);
-    w.set_size(width, height, WEBVIEW_HINT_NONE);
-
-    // &\(rt\s+(\w+)\)
-
-    //content = "<!doctype html><body><p>hello world</p></body></html>";
-    cout << "data:text/html," + string(content) << endl;
-
-    w.navigate("data:text/html," + string(content));
+void KeszegUI::Window::show()
+{
     w.run();
+}
+
+void KeszegUI::Window::title(const string& title)
+{
+    w.set_title(title);
 }
 
 void KeszegUI::Window::loopback(const string& arg)
@@ -41,32 +77,7 @@ void KeszegUI::Window::loopback(const string& arg)
     if (arg.length() > 4)
     {
         string rt = arg.substr(2, arg.length() - 4);
-        controlFlow.pushJump(rt); // Ez lehet nem fog mukodni TODO
-        // TODO ezert lehet fel kell parameterezni hogy a
-        // return tudja hogy igazabol nem kell visszaugrania vagy
-        // ha igen akkor csak a window render instructionre amit nem kell ujbol lefuttatnia
-
-
+        cout << "Loopback: " << rt << endl;
+        controlFlow.interrupt(rt);
     }
 }
-
-/*void KeszegUI::Window::render()
-{
-    webview::webview w(true, nullptr);
-    w.set_title(title);
-    w.set_size(width, height, WEBVIEW_HINT_NONE);
-
-    string html = "<!doctype html><body>";
-    html += linearMain.render();
-    html += "</body></html>";
-
-    string html = render();
-
-    w.bind("test_fung", [this](const std::string& arg) -> std::string
-    {
-        this->loopback(arg);
-        return "";
-    });
-
-    
-}*/
