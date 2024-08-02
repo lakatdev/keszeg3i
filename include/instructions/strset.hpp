@@ -8,7 +8,7 @@ namespace Instructions
     class Strset : public Instruction
     {
         public:
-        Strset(ControlFlow& controlFlow, Memory& memory);
+        Strset(Runtime& runtime);
         void execute(Line line);
     };
 }

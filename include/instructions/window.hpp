@@ -8,7 +8,7 @@ namespace Instructions
     class Window : public Instruction
     {
         public:
-        Window(ControlFlow& controlFlow, Memory& memory);
+        Window(Runtime& runtime);
         void execute(Line line);
     };
 }

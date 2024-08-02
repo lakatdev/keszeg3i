@@ -8,7 +8,7 @@ namespace Instructions
     class Random : public Instruction
     {
         public:
-        Random(ControlFlow& controlFlow, Memory& memory);
+        Random(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -1,11 +1,12 @@
 #include <instructions/end.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
+#include <runtime.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::End::End(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::End::End(Runtime& runtime): Instruction(runtime)
 {
     keys = {"end"};
     keyPositions = {0};
@@ -14,7 +15,7 @@ Instructions::End::End(ControlFlow& controlFlow, Memory& memory): Instruction(co
 void Instructions::End::execute(Line line)
 {
     vector<string> args = line.getTokens();
-    ControlFlow::CurrentScopeType endedScope = controlFlow.popType();
+    ControlFlow::CurrentScopeType endedScope = runtime.controlFlow.popType();
     switch (endedScope)
     {
         case (ControlFlow::CurrentScopeType::IF):
@@ -23,12 +24,12 @@ void Instructions::End::execute(Line line)
         }
         case (ControlFlow::CurrentScopeType::WHILE):
         {
-            controlFlow.jumpToScopeStart();
+            runtime.controlFlow.jumpToScopeStart();
             break;
         }
         case (ControlFlow::CurrentScopeType::SCOPE):
         {
-            memory.endScope();
+            runtime.memory.endScope();
             break;
         }
     }

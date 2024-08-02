@@ -2,12 +2,13 @@
 #include <chrono>
 #include <keszeg3i.hpp>
 #include <thread>
+#include <runtime.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
 
-Instructions::Sleep::Sleep(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Sleep::Sleep(Runtime& runtime): Instruction(runtime)
 {
     keys = {"sleep"};
     keyPositions = {0};
@@ -21,6 +22,6 @@ void Instructions::Sleep::execute(Line line)
         Keszeg3i::error("Usage: sleep X");
     }
 
-    int time = memory.isConstant(args[1]) ? stoi(args[1]): memory.getVariable(args[1]);
+    int time = runtime.memory.isConstant(args[1]) ? stoi(args[1]): runtime.memory.getVariable(args[1]);
     this_thread::sleep_for(chrono::milliseconds(time));
 }

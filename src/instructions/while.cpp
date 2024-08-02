@@ -2,10 +2,11 @@
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::While::While(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::While::While(Runtime& runtime): Instruction(runtime)
 {
     keys = {"while"};
     keyPositions = {0};
@@ -19,8 +20,8 @@ void Instructions::While::execute(Line line)
         Keszeg3i::error("Usage: while X operator Y");
     }
     bool evaluate = false;
-    int x = memory.isConstant(args[1]) ? stoi(args[1]): memory.getVariable(args[1]);
-    int y = memory.isConstant(args[3]) ? stoi(args[3]): memory.getVariable(args[3]);
+    int x = runtime.memory.isConstant(args[1]) ? stoi(args[1]): runtime.memory.getVariable(args[1]);
+    int y = runtime.memory.isConstant(args[3]) ? stoi(args[3]): runtime.memory.getVariable(args[3]);
     if (args[2] == "=")
     {
         evaluate = x == y;
@@ -52,10 +53,10 @@ void Instructions::While::execute(Line line)
 
     if (!evaluate)
     {
-        controlFlow.jumpToEnd();
+        runtime.controlFlow.jumpToEnd();
     }
     else 
     {
-        controlFlow.pushType(ControlFlow::CurrentScopeType::WHILE);
+        runtime.controlFlow.pushType(ControlFlow::CurrentScopeType::WHILE);
     }
 }

@@ -8,7 +8,7 @@ namespace Instructions
     class Exec : public Instruction
     {
         public:
-        Exec(ControlFlow& controlFlow, Memory& memory);
+        Exec(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Instructions::Exec::Exec(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Exec::Exec(Runtime& runtime): Instruction(runtime)
 {
     keys = {"exec"};
     keyPositions = {0};

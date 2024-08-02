@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Instructions::Subroutine::Subroutine(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Subroutine::Subroutine(Runtime& runtime): Instruction(runtime)
 {
     keys = {"(rt"};
     keyPositions = {0};

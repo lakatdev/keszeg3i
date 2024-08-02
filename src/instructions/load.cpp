@@ -5,10 +5,11 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Load::Load(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Load::Load(Runtime& runtime): Instruction(runtime)
 {
     keys = {"load"};
     keyPositions = {0};
@@ -23,7 +24,7 @@ void Instructions::Load::loadStringFromFile(string& arr, string filename)
     }
     stringstream buffer;
     buffer << fileStream.rdbuf();
-    memory.setString(arr, buffer.str());
+    runtime.memory.setString(arr, buffer.str());
 }
 
 void Instructions::Load::loadArrayFromFile(string& arr, string filename)
@@ -34,12 +35,12 @@ void Instructions::Load::loadArrayFromFile(string& arr, string filename)
         throw std::runtime_error("Could not open file " + filename);
     }
 
-    memory.freeArray(arr);
+    runtime.memory.freeArray(arr);
     int buffer;
     int i = 0;
     while (file.read(reinterpret_cast<char*>(&buffer), sizeof(buffer)))
     {
-        memory.setArrayElement(arr, i, buffer);
+        runtime.memory.setArrayElement(arr, i, buffer);
         i++;
     }
 }

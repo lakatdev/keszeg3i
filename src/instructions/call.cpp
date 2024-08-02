@@ -2,10 +2,11 @@
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Call::Call(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Call::Call(Runtime& runtime): Instruction(runtime)
 {
     keys = {"call"};
     keyPositions = {0};
@@ -19,5 +20,5 @@ void Instructions::Call::execute(Line line)
         Keszeg3i::error("Usage: call <subroutine>");
     }
 
-    controlFlow.pushJump(args[1]);
+    runtime.controlFlow.pushJump(args[1]);
 }

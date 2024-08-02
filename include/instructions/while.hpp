@@ -8,7 +8,7 @@ namespace Instructions
     class While : public Instruction
     {
         public:
-        While(ControlFlow& controlFlow, Memory& memory);
+        While(Runtime& runtime);
         void execute(Line line);
     };
 }

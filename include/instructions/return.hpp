@@ -8,7 +8,7 @@ namespace Instructions
     class Return : public Instruction
     {
         public:
-        Return(ControlFlow& controlFlow, Memory& memory);
+        Return(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -8,7 +8,7 @@ namespace Instructions
     class Arrget : public Instruction
     {
         public:
-        Arrget(ControlFlow& controlFlow, Memory& memory);
+        Arrget(Runtime& runtime);
         void execute(Line line);
     };
 }

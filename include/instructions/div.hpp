@@ -8,7 +8,7 @@ namespace Instructions
     class Div : public Instruction
     {
         public:
-        Div(ControlFlow& controlFlow, Memory& memory);
+        Div(Runtime& runtime);
         void execute(Line line);
     };
 }

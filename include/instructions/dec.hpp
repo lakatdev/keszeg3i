@@ -8,7 +8,7 @@ namespace Instructions
     class Dec : public Instruction
     {
         public:
-        Dec(ControlFlow& controlFlow, Memory& memory);
+        Dec(Runtime& runtime);
         void execute(Line line);
     };
 }

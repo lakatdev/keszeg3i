@@ -8,7 +8,7 @@ namespace Instructions
     class End : public Instruction
     {
         public:
-        End(ControlFlow& controlFlow, Memory& memory);
+        End(Runtime& runtime);
         void execute(Line line);
     };
 }

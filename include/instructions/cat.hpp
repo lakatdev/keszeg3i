@@ -8,7 +8,7 @@ namespace Instructions
     class Cat : public Instruction
     {
         public:
-        Cat(ControlFlow& controlFlow, Memory& memory);
+        Cat(Runtime& runtime);
         void execute(Line line);
     };
 }

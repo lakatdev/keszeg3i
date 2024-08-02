@@ -8,7 +8,7 @@ namespace Instructions
     class Mod : public Instruction
     {
         public:
-        Mod(ControlFlow& controlFlow, Memory& memory);
+        Mod(Runtime& runtime);
         void execute(Line line);
     };
 }

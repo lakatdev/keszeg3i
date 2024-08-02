@@ -8,7 +8,7 @@ namespace Instructions
     class Sizeof : public Instruction
     {
         public:
-        Sizeof(ControlFlow& controlFlow, Memory& memory);
+        Sizeof(Runtime& runtime);
         void execute(Line line);
     };
 }

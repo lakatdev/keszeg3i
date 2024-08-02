@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Instructions::Window::Window(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Window::Window(Runtime& runtime): Instruction(runtime)
 {
     keys = {"window"};
     keyPositions = {0};

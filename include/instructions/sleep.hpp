@@ -8,7 +8,7 @@ namespace Instructions
     class Sleep : public Instruction
     {
         public:
-        Sleep(ControlFlow& controlFlow, Memory& memory);
+        Sleep(Runtime& runtime);
         void execute(Line line);
     };
 }

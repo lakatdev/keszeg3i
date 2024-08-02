@@ -5,8 +5,7 @@
 #include <vector>
 #include <line.hpp>
 
-class Memory;
-class ControlFlow;
+class Runtime;
 
 using namespace std;
 
@@ -15,13 +14,12 @@ class Instruction
     private:
     bool matchesKey(Line line, string key, int keyPosition);
     protected:
-    Memory& memory;
-    ControlFlow& controlFlow;
+    Runtime& runtime;
     vector<string> keys;
     vector<int> keyPositions;
     int length = -1;
     public:
-    Instruction(ControlFlow& controlFlow, Memory& memory);
+    Instruction(Runtime& runtime);
     virtual void execute(Line line) = 0;
     bool matches(Line line);
 };

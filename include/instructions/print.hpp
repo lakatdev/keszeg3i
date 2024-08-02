@@ -8,7 +8,7 @@ namespace Instructions
     class Print : public Instruction
     {
         public:
-        Print(ControlFlow& controlFlow, Memory& memory);
+        Print(Runtime& runtime);
         void execute(Line line);
     };
 }

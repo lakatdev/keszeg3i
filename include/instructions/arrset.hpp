@@ -8,7 +8,7 @@ namespace Instructions
     class Arrset : public Instruction
     {
         public:
-        Arrset(ControlFlow& controlFlow, Memory& memory);
+        Arrset(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -3,10 +3,11 @@
 #include <memory.hpp>
 #include <controlflow.hpp>
 #include <cstdlib>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Random::Random(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Random::Random(Runtime& runtime): Instruction(runtime)
 {
     keys = {"random"};
     keyPositions = {0};
@@ -20,6 +21,6 @@ void Instructions::Random::execute(Line line)
         Keszeg3i::error("Usage: random X Y");
     }
 
-    int y = memory.isConstant(args[2]) ? stoi(args[2]): memory.getVariable(args[2]);
-    memory.setVariable(args[1], rand() % y);
+    int y = runtime.memory.isConstant(args[2]) ? stoi(args[2]): runtime.memory.getVariable(args[2]);
+    runtime.memory.setVariable(args[1], rand() % y);
 }

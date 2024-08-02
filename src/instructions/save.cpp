@@ -4,10 +4,11 @@
 #include <controlflow.hpp>
 #include <fstream>
 #include <string>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Save::Save(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Save::Save(Runtime& runtime): Instruction(runtime)
 {
     keys = {"save"};
     keyPositions = {0};
@@ -32,9 +33,9 @@ void Instructions::Save::saveArrayToFile(const string& arr, const string& filena
     ofstream file(filename, ios::binary);
     if (file.is_open())
     {
-        for (int i = 0; i < memory.getArraySize(arr); i++)
+        for (int i = 0; i < runtime.memory.getArraySize(arr); i++)
         {
-            int element = memory.getArrayElement(arr, i);
+            int element = runtime.memory.getArrayElement(arr, i);
             file.write(reinterpret_cast<const char*>(&element), sizeof(element));
         }
         file.close();
@@ -55,9 +56,9 @@ void Instructions::Save::execute(Line line)
 
     if (args[1] == "string")
     {
-        if (memory.isString(args[2]))
+        if (runtime.memory.isString(args[2]))
         {
-            saveStringToFile(memory.getString(args[2]), line.parseString(3));
+            saveStringToFile(runtime.memory.getString(args[2]), line.parseString(3));
         }
         else
         {
@@ -66,7 +67,7 @@ void Instructions::Save::execute(Line line)
     }
     else if (args[1] == "array")
     {
-        if (memory.isArray(args[2]))
+        if (runtime.memory.isArray(args[2]))
         {
             saveArrayToFile(args[2], line.parseString(3));
         }

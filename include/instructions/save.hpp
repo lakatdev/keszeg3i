@@ -11,7 +11,7 @@ namespace Instructions
         void saveStringToFile(const string& str, const string& filename);
         void saveArrayToFile(const string& arr, const string& filename);
         public:
-        Save(ControlFlow& controlFlow, Memory& memory);
+        Save(Runtime& runtime);
         void execute(Line line);
     };
 }

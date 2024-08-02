@@ -8,7 +8,7 @@ namespace Instructions
     class Call : public Instruction
     {
         public:
-        Call(ControlFlow& controlFlow, Memory& memory);
+        Call(Runtime& runtime);
         void execute(Line line);
     };
 }

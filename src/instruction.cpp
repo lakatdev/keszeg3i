@@ -1,8 +1,9 @@
 #include <instruction.hpp>
 #include <controlflow.hpp>
 #include <memory.hpp>
+#include <runtime.hpp>
 
-Instruction::Instruction(ControlFlow& controlFlow, Memory& memory): memory(memory), controlFlow(controlFlow)
+Instruction::Instruction(Runtime& runtime): runtime(runtime)
 {
 
 }

@@ -8,7 +8,7 @@ namespace Instructions
     class Set : public Instruction
     {
         public:
-        Set(ControlFlow& controlFlow, Memory& memory);
+        Set(Runtime& runtime);
         void execute(Line line);
     };
 }

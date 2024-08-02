@@ -2,10 +2,11 @@
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Return::Return(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Return::Return(Runtime& runtime): Instruction(runtime)
 {
     keys = {"return)"};
     keyPositions = {0};
@@ -14,5 +15,5 @@ Instructions::Return::Return(ControlFlow& controlFlow, Memory& memory): Instruct
 void Instructions::Return::execute(Line line)
 {
     vector<string> args = line.getTokens();
-    controlFlow.popJump();
+    runtime.controlFlow.popJump();
 }

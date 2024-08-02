@@ -8,7 +8,7 @@ namespace Instructions
     class Strget : public Instruction
     {
         public:
-        Strget(ControlFlow& controlFlow, Memory& memory);
+        Strget(Runtime& runtime);
         void execute(Line line);
     };
 }

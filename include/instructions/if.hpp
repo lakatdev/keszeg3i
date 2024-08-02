@@ -8,7 +8,7 @@ namespace Instructions
     class If : public Instruction
     {
         public:
-        If(ControlFlow& controlFlow, Memory& memory);
+        If(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -8,7 +8,7 @@ namespace Instructions
     class Free : public Instruction
     {
         public:
-        Free(ControlFlow& controlFlow, Memory& memory);
+        Free(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -2,10 +2,11 @@
 #include <keszeg3i.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Dec::Dec(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Dec::Dec(Runtime& runtime): Instruction(runtime)
 {
     keys = {"-="};
     keyPositions = {1};
@@ -22,8 +23,8 @@ void Instructions::Dec::execute(Line line)
     int y = 1;
     if (args.size() == 3)
     {
-        y = memory.isConstant(args[2]) ? stoi(args[2]): memory.getVariable(args[2]);
+        y = runtime.memory.isConstant(args[2]) ? stoi(args[2]): runtime.memory.getVariable(args[2]);
     }
-    int x = memory.getVariable(args[0]);
-    memory.setVariable(args[0], x - y);
+    int x = runtime.memory.getVariable(args[0]);
+    runtime.memory.setVariable(args[0], x - y);
 }

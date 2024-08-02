@@ -8,7 +8,7 @@ namespace Instructions
     class Mul : public Instruction
     {
         public:
-        Mul(ControlFlow& controlFlow, Memory& memory);
+        Mul(Runtime& runtime);
         void execute(Line line);
     };
 }

@@ -3,10 +3,11 @@
 #include <memory.hpp>
 #include <controlflow.hpp>
 #include <iostream>
+#include <runtime.hpp>
 
 using namespace std;
 
-Instructions::Input::Input(ControlFlow& controlFlow, Memory& memory): Instruction(controlFlow, memory)
+Instructions::Input::Input(Runtime& runtime): Instruction(runtime)
 {
     keys = {"input"};
     keyPositions = {0};
@@ -24,20 +25,20 @@ void Instructions::Input::execute(Line line)
     {
         int val = 0;
         cin >> val;
-        memory.setVariable(args[2], val);
+        runtime.memory.setVariable(args[2], val);
     }
     else if (args[1] == "ascii")
     {
         char valChar;
         cin >> valChar;
         int val = valChar;
-        memory.setVariable(args[2], val);
+        runtime.memory.setVariable(args[2], val);
     }
     else if (args[1] == "string")
     {
         string val;
         cin >> val;
-        memory.setString(args[2], val);
+        runtime.memory.setString(args[2], val);
     }
     else
     {

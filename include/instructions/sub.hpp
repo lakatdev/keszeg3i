@@ -8,7 +8,7 @@ namespace Instructions
     class Sub : public Instruction
     {
         public:
-        Sub(ControlFlow& controlFlow, Memory& memory);
+        Sub(Runtime& runtime);
         void execute(Line line);
     };
 }

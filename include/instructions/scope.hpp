@@ -8,7 +8,7 @@ namespace Instructions
     class Scope : public Instruction
     {
         public:
-        Scope(ControlFlow& controlFlow, Memory& memory);
+        Scope(Runtime& runtime);
         void execute(Line line);
     };
 }

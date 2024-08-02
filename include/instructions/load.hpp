@@ -11,7 +11,7 @@ namespace Instructions
         void loadStringFromFile(string& arr, string filename);
         void loadArrayFromFile(string& arr, string filename);
         public:
-        Load(ControlFlow& controlFlow, Memory& memory);
+        Load(Runtime& runtime);
         void execute(Line line);
     };
 }

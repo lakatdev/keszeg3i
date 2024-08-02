@@ -8,7 +8,7 @@ namespace Instructions
     class Subroutine : public Instruction
     {
         public:
-        Subroutine(ControlFlow& controlFlow, Memory& memory);
+        Subroutine(Runtime& runtime);
         void execute(Line line);
     };
 }
