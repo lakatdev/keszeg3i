@@ -18,6 +18,11 @@ KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int widt
     show();
 }
 
+KeszegUI::Window::Window(ControlFlow& controlFlow): controlFlow(controlFlow), w(true, nullptr)
+{
+
+}
+
 void KeszegUI::Window::update()
 {
     regex pattern("&\\(rt\\s+(\\w+)\\)");

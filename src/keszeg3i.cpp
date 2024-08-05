@@ -49,8 +49,10 @@ Keszeg3i::Keszeg3i(vector<string> args)
         error("Usage: keszeg3i (<flags>) <file>", true);
     }
 
-    for (const auto& arg : args) {
-        if (arg == "-d") {
+    for (const auto& arg : args)
+    {
+        if (arg == "-d")
+        {
             debugMode = true;
         }
     }
@@ -58,7 +60,8 @@ Keszeg3i::Keszeg3i(vector<string> args)
     Interpreter interpreter = Interpreter();
     Memory memory = Memory();
     ControlFlow controlFlow = ControlFlow(interpreter);
-    Runtime runtime = Runtime(controlFlow, memory, args[args.size() - 1]);
+    KeszegUI::Window window(controlFlow);
+    Runtime runtime = Runtime(controlFlow, memory, window, args[args.size() - 1]);
 
     interpreter.addInstruction(new Instructions::Add(runtime));
     interpreter.addInstruction(new Instructions::Arrget(runtime));
@@ -89,8 +92,6 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Sub(runtime));
     interpreter.addInstruction(new Instructions::Subroutine(runtime));
     interpreter.addInstruction(new Instructions::While(runtime));
-
-    //KeszegUI::Window testWindow(controlFlow, "Keszeg Application", 450, 350, "/home/fodor/Projects/keszeg3i/minta/example.khtml");
 
     runtime.run();
 }

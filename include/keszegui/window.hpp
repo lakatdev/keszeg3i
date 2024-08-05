@@ -18,6 +18,7 @@ namespace KeszegUI
         void loopback(const string& arg);
         public:
         Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path);
+        Window(ControlFlow& controlFlow);
         void update();
         void close();
         void size(int width, int height);

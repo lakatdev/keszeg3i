@@ -27,7 +27,8 @@ void Runtime::readLines(string source)
     }
 }
 
-Runtime::Runtime(ControlFlow& controlFlow, Memory& memory, string source): memory(memory), controlFlow(controlFlow)
+Runtime::Runtime(ControlFlow& controlFlow, Memory& memory, KeszegUI::Window& window, string source)
+    : memory(memory), controlFlow(controlFlow), window(window)
 {
     srand(time(nullptr));
     readLines(source);
