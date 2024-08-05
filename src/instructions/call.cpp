@@ -20,5 +20,8 @@ void Instructions::Call::execute(Line line)
         Keszeg3i::error("Usage: call <subroutine>");
     }
 
-    runtime.controlFlow.pushJump(args[1]);
+    if (!runtime.controlFlow.pushJump(args[1]))
+    {
+        Keszeg3i::error("Subroutine " + args[1] + " not found");
+    }
 }

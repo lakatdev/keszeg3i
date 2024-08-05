@@ -37,6 +37,7 @@
 #include <instructions/sub.hpp>
 #include <instructions/subroutine.hpp>
 #include <instructions/while.hpp>
+#include <instructions/window.hpp>
 
 using namespace std;
 
@@ -92,6 +93,7 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Sub(runtime));
     interpreter.addInstruction(new Instructions::Subroutine(runtime));
     interpreter.addInstruction(new Instructions::While(runtime));
+    interpreter.addInstruction(new Instructions::Window(runtime));
 
     runtime.run();
 }

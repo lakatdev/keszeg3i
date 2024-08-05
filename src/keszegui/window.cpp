@@ -36,8 +36,7 @@ void KeszegUI::Window::update()
         return "";
     });
 
-    cout << "Content: " << content << endl;
-
+    Keszeg3i::debug("Content: " + content);
     w.navigate("data:text/html," + content);
 }
 
@@ -82,7 +81,7 @@ void KeszegUI::Window::loopback(const string& arg)
     if (arg.length() > 4)
     {
         string rt = arg.substr(2, arg.length() - 4);
-        cout << "Loopback: " << rt << endl;
+        Keszeg3i::debug("Loopback: " + rt);
         controlFlow.interrupt(rt);
     }
 }

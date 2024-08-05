@@ -62,4 +62,16 @@ void Instructions::Window::execute(Line line)
         }
         runtime.window.open(line.parseString(2));
     }
+    else if (args[1] == "title")
+    {
+        if (args.size() <= 2)
+        {
+            Keszeg3i::error("Usage:\n\twindow title <text>");
+        }
+        runtime.window.title(line.parseString(2));
+    }
+    else
+    {
+        Keszeg3i::error("Invalid usage of window");
+    }
 }

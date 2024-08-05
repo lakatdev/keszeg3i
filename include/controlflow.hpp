@@ -30,11 +30,11 @@ class ControlFlow
     void addLine(Line line);
     void run();
 
-    void jumpToRt(string label);
+    bool jumpToRt(string label);
     void jumpToEnd();
     void jumpToScopeStart();
     CurrentScopeType getCurrentScopeType();
-    void pushJump(string label);
+    bool pushJump(string label);
     void popJump();
     void pushType(CurrentScopeType type);
     void interrupt(string label);

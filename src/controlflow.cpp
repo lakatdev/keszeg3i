@@ -37,7 +37,7 @@ void ControlFlow::executeCurrent()
     currentExecution = true;
 }
 
-void ControlFlow::jumpToRt(string label)
+bool ControlFlow::jumpToRt(string label)
 {
     for (int i = 0; i < lines.size(); i++)
     {
@@ -45,9 +45,10 @@ void ControlFlow::jumpToRt(string label)
         {
             currentLine = i;
             executeCurrent();
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void ControlFlow::jumpToEnd()
@@ -89,10 +90,10 @@ ControlFlow::CurrentScopeType ControlFlow::getCurrentScopeType()
     return currentScope[currentScope.size() - 1];
 }
 
-void ControlFlow::pushJump(string label)
+bool ControlFlow::pushJump(string label)
 {
     stack.push_back(currentLine);
-    jumpToRt(label);
+    return jumpToRt(label);
 }
 
 void ControlFlow::popJump()
@@ -102,6 +103,7 @@ void ControlFlow::popJump()
         running = false;
         return;
     }
+
     int line = stack[stack.size() - 1];
     stack.pop_back();
     currentLine = line;
@@ -162,5 +164,35 @@ void ControlFlow::jumpToScopeStart()
 
 void ControlFlow::interrupt(string label)
 {
-    
+    int savedLine = currentLine;
+    bool savedRunning = running;
+    vector<int> stackCopy = stack;
+    stack = vector<int>();
+    if (pushJump(label))
+    {
+        currentExecution = false;
+        while (currentLine < lines.size())
+        {
+            Keszeg3i::debug("Running line as interrupt " + to_string(currentLine + 1));
+            interpreter.interpret(lines[currentLine], currentLine);
+            if (!currentExecution)
+            {
+                Keszeg3i::debug("Incrementing line");
+                currentLine++;
+            }
+            currentExecution = false;
+            if (stack.size() == 0)
+            {
+                break;
+            }
+        }   
+    }
+    else
+    {
+        Keszeg3i::error("Failed to jump to " + label);
+    }
+
+    running = savedRunning;
+    stack = stackCopy;
+    currentLine = savedLine;
 }
