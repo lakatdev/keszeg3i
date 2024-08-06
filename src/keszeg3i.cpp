@@ -61,7 +61,7 @@ Keszeg3i::Keszeg3i(vector<string> args)
     Interpreter interpreter = Interpreter();
     Memory memory = Memory();
     ControlFlow controlFlow = ControlFlow(interpreter);
-    KeszegUI::Window window(controlFlow);
+    KeszegUI::Window window(controlFlow, memory);
     Runtime runtime = Runtime(controlFlow, memory, window, args[args.size() - 1]);
 
     interpreter.addInstruction(new Instructions::Add(runtime));

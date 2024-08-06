@@ -9,26 +9,35 @@
 
 using namespace std;
 
-KeszegUI::Window::Window(ControlFlow& controlFlow, const string& title, int width, int height, const string& path): controlFlow(controlFlow), w(true, nullptr)
-{
-    open(path);
-    this->title(title);
-    size(width, height);
-    update();
-    show();
-}
-
-KeszegUI::Window::Window(ControlFlow& controlFlow): controlFlow(controlFlow), w(true, nullptr)
+KeszegUI::Window::Window(ControlFlow& controlFlow, Memory& memory): controlFlow(controlFlow), memory(memory), w(true, nullptr)
 {
 
 }
 
 void KeszegUI::Window::update()
 {
-    regex pattern("&\\(rt\\s+(\\w+)\\)");
-    string replacement = "\"loopback(\'$1\')\"";
+    content = fileContent;
 
-    content = regex_replace(content, pattern, replacement);
+    regex routinePattern("&\\(rt\\s+(\\w+)\\)");
+    string routineReplacement = "\"loopback(\'$1\')\"";
+    content = regex_replace(content, routinePattern, routineReplacement);
+
+    regex stringPattern("&\\(string\\s+(\\w+)\\)");
+    string result;
+    auto begin = sregex_iterator(content.begin(), content.end(), stringPattern);
+    auto end = sregex_iterator();
+    size_t lastPos = 0;
+
+    for (auto it = begin; it != end; ++it)
+    {
+        smatch match = *it;
+        result += content.substr(lastPos, match.position() - lastPos);
+        result += memory.getString(match[1].str());
+        lastPos = match.position() + match.length();
+    }
+    result += content.substr(lastPos);
+
+    content = result;
 
     w.bind("loopback", [this](const string& arg) -> string
     {
@@ -57,7 +66,7 @@ void KeszegUI::Window::open(const string& path)
     {
         stringstream buffer;
         buffer << file.rdbuf();
-        content = buffer.str();
+        fileContent = buffer.str();
     }
     else
     {
