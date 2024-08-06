@@ -164,6 +164,12 @@ void ControlFlow::jumpToScopeStart()
 
 void ControlFlow::interrupt(string label)
 {
+    if (interruptLock)
+    {
+        Keszeg3i::debug("Interrupt lock is active");
+        return;
+    }
+    interruptLock = true;
     int savedLine = currentLine;
     bool savedRunning = running;
     vector<int> stackCopy = stack;
@@ -195,4 +201,5 @@ void ControlFlow::interrupt(string label)
     running = savedRunning;
     stack = stackCopy;
     currentLine = savedLine;
+    interruptLock = false;
 }

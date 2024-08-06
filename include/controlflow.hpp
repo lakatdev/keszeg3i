@@ -23,6 +23,7 @@ class ControlFlow
     vector<int> stack;
     bool running = false;
     bool currentExecution = false;
+    bool interruptLock = false;
     void executeCurrent();
 
     public:
