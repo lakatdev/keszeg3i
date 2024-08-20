@@ -30,6 +30,6 @@ void Instructions::Sizeof::execute(Line line)
     }
     else
     {
-        Keszeg3i::error(args[2] + " is not an array or a string");
+        runtime.memory.setVariable(args[0], 0);
     }
 }
