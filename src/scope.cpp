@@ -109,3 +109,13 @@ string Scope::getString(string token)
 {
     return strings[token];
 }
+
+void Scope::declareArray(string token)
+{
+    arrays[token] = vector<int>();
+}
+
+void Scope::declareString(string token)
+{
+    strings[token] = "";
+}

@@ -14,6 +14,7 @@
 #include <instructions/call.hpp>
 #include <instructions/cat.hpp>
 #include <instructions/dec.hpp>
+#include <instructions/declare.hpp>
 #include <instructions/div.hpp>
 #include <instructions/end.hpp>
 #include <instructions/exec.hpp>
@@ -70,6 +71,7 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Call(runtime));
     interpreter.addInstruction(new Instructions::Cat(runtime));
     interpreter.addInstruction(new Instructions::Dec(runtime));
+    interpreter.addInstruction(new Instructions::Declare(runtime));
     interpreter.addInstruction(new Instructions::Div(runtime));
     interpreter.addInstruction(new Instructions::End(runtime));
     interpreter.addInstruction(new Instructions::Exec(runtime));

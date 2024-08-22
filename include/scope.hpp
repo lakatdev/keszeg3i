@@ -31,6 +31,8 @@ class Scope
     void freeVariable(string token);
     int getArraySize(string token);
     int getStringSize(string token);
+    void declareArray(string token);
+    void declareString(string token);
 };
 
 #endif

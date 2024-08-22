@@ -241,3 +241,27 @@ string Memory::getString(string token)
     Keszeg3i::error("String " + token + " has not been declared");
     return "";
 }
+
+void Memory::declareArray(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isArray(token))
+        {
+            Keszeg3i::error("Array " + token + " has already been declared");
+        }
+    }
+    scopes[scopes.size() - 1].declareArray(token);
+}
+
+void Memory::declareString(string token)
+{
+    for (int i = scopes.size() - 1; i >= 0; i--)
+    {
+        if (scopes[i].isString(token))
+        {
+            Keszeg3i::error("String " + token + " has already been declared");
+        }
+    }
+    scopes[scopes.size() - 1].declareString(token);
+}

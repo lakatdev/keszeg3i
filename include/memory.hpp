@@ -34,6 +34,8 @@ class Memory
     int getArraySize(string token);
     int getStringSize(string token);
     string getString(string token);
+    void declareArray(string token);
+    void declareString(string token);
 };
 
 #endif
