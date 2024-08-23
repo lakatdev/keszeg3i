@@ -8,7 +8,7 @@ using namespace std;
 
 Instructions::Return::Return(Runtime& runtime): Instruction(runtime)
 {
-    keys = {"return)"};
+    keys = {"rt)"};
     keyPositions = {0};
 }
 
