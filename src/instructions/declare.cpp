@@ -10,6 +10,7 @@ Instructions::Declare::Declare(Runtime& runtime): Instruction(runtime)
 {
     keys = {"@"};
     keyPositions = {1};
+    length = 3;
 }
 
 void Instructions::Declare::execute(Line line)
@@ -26,7 +27,7 @@ void Instructions::Declare::execute(Line line)
 
     if (args[0] == "var")
     {
-        runtime.memory.setVariable(args[0], 0);
+        runtime.memory.setVariable(args[2], 0);
     }
     else if (args[0] == "array")
     {
@@ -40,5 +41,4 @@ void Instructions::Declare::execute(Line line)
     {
         Keszeg3i::error("Usage: (string / array / var) @ X");
     }
-
 }
