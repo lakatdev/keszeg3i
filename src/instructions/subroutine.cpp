@@ -1,6 +1,7 @@
 #include <instructions/subroutine.hpp>
 #include <keszeg3i.hpp>
 #include <memory.hpp>
+#include <runtime.hpp>
 #include <controlflow.hpp>
 
 using namespace std;
@@ -17,5 +18,10 @@ void Instructions::Subroutine::execute(Line line)
     if (args.size() != 2)
     {
         Keszeg3i::error("Invalid declaration, usage: (rt <subroutine>");
+    }
+
+    if (runtime.controlFlow.isStackEmpty())
+    {
+        runtime.controlFlow.jumpToRtEnd(args[1]);
     }
 }

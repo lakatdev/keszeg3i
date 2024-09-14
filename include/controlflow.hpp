@@ -32,6 +32,8 @@ class ControlFlow
     void run();
 
     bool jumpToRt(string label);
+    void jumpToRtEnd(string label);
+    bool isStackEmpty();
     void jumpToEnd();
     void jumpToScopeStart();
     CurrentScopeType getCurrentScopeType();

@@ -51,6 +51,24 @@ bool ControlFlow::jumpToRt(string label)
     return false;
 }
 
+void ControlFlow::jumpToRtEnd(string label)
+{
+    if (!jumpToRt(label))
+    {
+        return;
+    }
+
+    int i = currentLine;
+    for (; i < lines.size(); i++)
+    {
+        if (lines[i].getTokens().size() >= 1 && lines[i].getTokens()[0] == "rt)")
+        {
+            currentLine = i + 1;
+            break;
+        }
+    }
+}
+
 void ControlFlow::jumpToEnd()
 {
     int newScopes = 1;
@@ -94,6 +112,11 @@ bool ControlFlow::pushJump(string label)
 {
     stack.push_back(currentLine);
     return jumpToRt(label);
+}
+
+bool ControlFlow::isStackEmpty()
+{
+    return stack.size() == 0;
 }
 
 void ControlFlow::popJump()
