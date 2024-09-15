@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <keszeg3i.hpp>
+#include <keszegui/window.hpp>
 
 using namespace std;
 
