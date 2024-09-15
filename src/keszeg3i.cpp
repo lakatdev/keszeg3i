@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 
-#include <keszegui/window.hpp>
-
 #include <instructions/add.hpp>
 #include <instructions/arrget.hpp>
 #include <instructions/arrset.hpp>
@@ -38,7 +36,6 @@
 #include <instructions/sub.hpp>
 #include <instructions/subroutine.hpp>
 #include <instructions/while.hpp>
-#include <instructions/window.hpp>
 
 using namespace std;
 
@@ -62,8 +59,7 @@ Keszeg3i::Keszeg3i(vector<string> args)
     Interpreter interpreter = Interpreter();
     Memory memory = Memory();
     ControlFlow controlFlow = ControlFlow(interpreter);
-    KeszegUI::Window window(controlFlow, memory);
-    Runtime runtime = Runtime(controlFlow, memory, window, args[args.size() - 1]);
+    Runtime runtime = Runtime(controlFlow, memory, args[args.size() - 1]);
 
     interpreter.addInstruction(new Instructions::Add(runtime));
     interpreter.addInstruction(new Instructions::Arrget(runtime));
@@ -95,7 +91,6 @@ Keszeg3i::Keszeg3i(vector<string> args)
     interpreter.addInstruction(new Instructions::Sub(runtime));
     interpreter.addInstruction(new Instructions::Subroutine(runtime));
     interpreter.addInstruction(new Instructions::While(runtime));
-    interpreter.addInstruction(new Instructions::Window(runtime));
 
     runtime.run();
 }

@@ -7,7 +7,6 @@
 #include <interpreter.hpp>
 #include <memory.hpp>
 #include <controlflow.hpp>
-#include <keszegui/window.hpp>
 
 class Runtime
 {
@@ -17,8 +16,7 @@ class Runtime
     public:
     ControlFlow& controlFlow;
     Memory& memory;
-    KeszegUI::Window& window;
-    Runtime(ControlFlow& controlFlow, Memory& memory, KeszegUI::Window& window, string source);
+    Runtime(ControlFlow& controlFlow, Memory& memory, string source);
     void run();
 };
 
