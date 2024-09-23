@@ -20,7 +20,7 @@ void Instructions::Subroutine::execute(Line line)
         Keszeg3i::error("Invalid declaration, usage: (rt <subroutine>");
     }
 
-    if (runtime.controlFlow.isStackEmpty())
+    if (runtime.controlFlow.isStackEmpty() && args[1] != "MAIN")
     {
         runtime.controlFlow.jumpToRtEnd(args[1]);
     }
